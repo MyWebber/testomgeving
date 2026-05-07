@@ -312,6 +312,11 @@
       border-radius: 50%;
     }
 
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
     /* Hero headline word animation */
     @keyframes wordUp {
       0%   { opacity: 0; transform: translateY(40px) skewY(4deg); filter: blur(8px); }
@@ -350,11 +355,11 @@
     }
 
     .hero-sub {
-      font-size: clamp(0.875rem, 1.5vw + 0.6rem, 1.05rem);
+      font-size: 1.05rem;
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 40px;
-      max-width: min(440px, 100%);
+      max-width: 440px;
       opacity: 0;
       animation: fadeUp .6s ease forwards;
       animation-delay: .62s;
@@ -405,8 +410,8 @@
     .hero-usps {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      margin-bottom: 36px;
+      gap: 8px;
+      margin-bottom: 28px;
       opacity: 0;
       animation: fadeUp .6s ease forwards;
       animation-delay: .62s;
@@ -415,10 +420,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: clamp(0.8rem, 1.5vw + 0.55rem, 1rem);
+      font-size: 1rem;
       color: var(--text);
       font-weight: 500;
-      flex-wrap: wrap;
     }
     .hero-usp svg { color: var(--green); flex-shrink: 0; }
 
@@ -437,12 +441,14 @@
 /* -- HERO LEFT TYPOGRAPHY -- */
     .hero-content h1 {
       font-family: "DM Serif Display", serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-size: clamp(2rem, 6vw, 3.6rem);
       font-weight: 900;
-      line-height: 1.15;
+      line-height: 1.12;
       color: var(--text);
       letter-spacing: -.5px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
+      opacity: 1;
+      animation: none;
     }
     .hero-content h1 em {
       font-style: italic;
@@ -473,11 +479,11 @@
       line-height: 1.7;
     }
     .hero-content p {
-      font-size: clamp(0.875rem, 1.5vw + 0.6rem, 1.05rem);
+      font-size: 1.05rem;
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 32px;
-      max-width: min(480px, 100%);
+      max-width: 480px;
     }
 
     /* -- DISCOUNT CARD -- */
@@ -2267,19 +2273,16 @@
       .nav-inner { padding: 0 16px; }
 
       /* Hero */
-      .hero { padding-top: 16px; }
-      .hero-inner {
-        padding: 0 16px 40px;
-        text-align: center;
-        justify-items: center;
-      }
-      .hero-content { display: flex; flex-direction: column; align-items: center; }
-      .hero-content h1 { font-size: clamp(1.9rem, 9vw, 2.6rem); margin-bottom: 24px; }
-      .hero-eyebrow { margin-left: auto; margin-right: auto; }
+      .hero { padding-top: 16px; overflow-x: hidden; }
+      .hero-inner { padding: 0 16px 40px; text-align: center; box-sizing: border-box; width: 100%; }
+      .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+      .hero-content h1 { line-height: 1.1; margin-bottom: 14px; }
       .hero-sub { margin-left: auto; margin-right: auto; }
-      .hero-usps { flex-direction: column; gap: 8px; align-items: center; }
-      .hero-usp { justify-content: center; text-align: center; }
-      .hero-actions { justify-content: center; }
+      .hero-usps { gap: 6px; margin-bottom: 16px; align-items: flex-start; }
+      .hero-actions { justify-content: center; flex-wrap: wrap; gap: 10px; }
+      .hero-actions a, .hero-actions button { width: 100%; text-align: center; justify-content: center; box-sizing: border-box; }
+      .dc-wrap { width: 100%; max-width: 100%; box-sizing: border-box; }
+      .dc-card { width: 100%; box-sizing: border-box; }
       .dc-countdown { gap: 6px; }
 
       /* Package */
@@ -2324,8 +2327,7 @@
 
     /* ── ≤ 400px (small phones) ── */
     @media(max-width: 400px) {
-      .hero h1 { font-size: 1.6rem; }
-      .dc-main-price .dc-amount { font-size: 3rem; }
+      .dc-main-price .dc-amount { font-size: 2.6rem; }
       .why-stat-num { font-size: 1.5rem; }
     }
   </style>
@@ -2394,7 +2396,7 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-photo-panel">
-      <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1400&q=80&fit=crop" alt=""/>
+      <img src="afbeelding 2.jpeg" alt=""/>
     </div>
     <div class="hero-inner">
 
@@ -2802,7 +2804,7 @@
         <!-- photo column -->
         <div class="hiw-photo-col">
           <div class="hiw-photo-wrap">
-            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80&fit=crop" alt="Cursusdag Theoriemeesters">
+            <img src="afbeeldin1.jpeg" alt="Cursusdag Theoriemeesters">
             <div class="hiw-photo-caption">
               <div class="hiw-photo-caption-title">Rijswijk / Den Haag</div>
               <div class="hiw-photo-caption-sub">Kleine groepen &middot; intensief &middot; resultaatgericht</div>
