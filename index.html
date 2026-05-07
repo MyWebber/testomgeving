@@ -312,22 +312,6 @@
       border-radius: 50%;
     }
 
-    .hero-content h1 {
-      font-family: "DM Serif Display", serif;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 900;
-      line-height: 1.12;
-      color: var(--text);
-      letter-spacing: -.5px;
-      margin-bottom: 20px;
-      opacity: 1;
-      animation: none;
-    }
-    .hero-content h1 em {
-      font-style: italic;
-      color: var(--primary);
-    }
-
     /* Hero headline word animation */
     @keyframes wordUp {
       0%   { opacity: 0; transform: translateY(40px) skewY(4deg); filter: blur(8px); }
@@ -366,11 +350,11 @@
     }
 
     .hero-sub {
-      font-size: 1.05rem;
+      font-size: clamp(0.875rem, 1.5vw + 0.6rem, 1.05rem);
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 40px;
-      max-width: 440px;
+      max-width: min(440px, 100%);
       opacity: 0;
       animation: fadeUp .6s ease forwards;
       animation-delay: .62s;
@@ -431,9 +415,10 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 1rem;
+      font-size: clamp(0.8rem, 1.5vw + 0.55rem, 1rem);
       color: var(--text);
       font-weight: 500;
+      flex-wrap: wrap;
     }
     .hero-usp svg { color: var(--green); flex-shrink: 0; }
 
@@ -488,11 +473,11 @@
       line-height: 1.7;
     }
     .hero-content p {
-      font-size: 1.05rem;
+      font-size: clamp(0.875rem, 1.5vw + 0.6rem, 1.05rem);
       color: var(--muted);
       line-height: 1.8;
       margin-bottom: 32px;
-      max-width: 480px;
+      max-width: min(480px, 100%);
     }
 
     /* -- DISCOUNT CARD -- */
