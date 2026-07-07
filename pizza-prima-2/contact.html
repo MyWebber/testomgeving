@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Pizza Prima 2</title>
+<meta name="description" content="Neem contact op met Pizza Prima 2: telefoon, e-mail, WhatsApp, openingstijden en locatie in Rotterdam.">
+<link rel="canonical" href="https://www.pizzaprima2.nl/contact.html">
+<meta name="theme-color" content="#C6351F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Contact</span></div>
+      <span class="eyebrow"><span class="dot"></span> We horen graag van je</span>
+      <h1 class="section-title">Neem <em>contact</em> op</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid reveal-stagger" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:56px;">
+        <a href="tel:+31101234567" class="card" style="padding:26px;text-align:center;text-decoration:none;color:inherit;">
+          <div style="font-size:1.8rem;">📞</div>
+          <h3 class="font-display" style="margin:10px 0 4px;font-size:1.05rem;">Telefoon</h3>
+          <p class="text-muted" style="font-size:.86rem;">010 123 4567</p>
+        </a>
+        <a href="mailto:info@pizzaprima2.nl" class="card" style="padding:26px;text-align:center;text-decoration:none;color:inherit;">
+          <div style="font-size:1.8rem;">✉️</div>
+          <h3 class="font-display" style="margin:10px 0 4px;font-size:1.05rem;">E-mail</h3>
+          <p class="text-muted" style="font-size:.86rem;">info@pizzaprima2.nl</p>
+        </a>
+        <a href="https://wa.me/31612345678" target="_blank" rel="noopener" class="card" style="padding:26px;text-align:center;text-decoration:none;color:inherit;">
+          <div style="font-size:1.8rem;">💬</div>
+          <h3 class="font-display" style="margin:10px 0 4px;font-size:1.05rem;">WhatsApp</h3>
+          <p class="text-muted" style="font-size:.86rem;">06 12345678</p>
+        </a>
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-size:1.8rem;">📍</div>
+          <h3 class="font-display" style="margin:10px 0 4px;font-size:1.05rem;">Adres</h3>
+          <p class="text-muted" style="font-size:.86rem;">Via Roma 12, 3011 AB Rotterdam</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+        <div class="reveal">
+          <h2 class="font-display" style="font-size:1.5rem;margin-bottom:20px;">Stuur ons een bericht</h2>
+          <form id="contactForm" class="card" style="padding:28px;">
+            <div class="field-row">
+              <div class="field"><label>Naam</label><input type="text" id="cName" required placeholder="Je naam"></div>
+              <div class="field"><label>E-mailadres</label><input type="email" id="cEmail" required placeholder="jij@email.nl"></div>
+            </div>
+            <div class="field"><label>Onderwerp</label>
+              <select id="cSubject">
+                <option>Algemene vraag</option>
+                <option>Bestelling</option>
+                <option>Allergieën</option>
+                <option>Klacht</option>
+                <option>Samenwerking</option>
+              </select>
+            </div>
+            <div class="field"><label>Bericht</label><textarea id="cMessage" rows="5" required placeholder="Waarmee kunnen we helpen?"></textarea></div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Verstuur bericht</button>
+          </form>
+        </div>
+        <div class="reveal">
+          <h2 class="font-display" style="font-size:1.5rem;margin-bottom:20px;">Openingstijden &amp; locatie</h2>
+          <div class="card" style="padding:24px;margin-bottom:20px;">
+            <ul class="footer-hours" id="hoursList" style="color:var(--ink-soft);"></ul>
+          </div>
+          <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:16/11;">
+            <iframe title="Locatie Pizza Prima 2 op kaart" src="https://www.openstreetmap.org/export/embed.html?bbox=4.475%2C51.915%2C4.505%2C51.930&layer=mapnik&marker=51.9225%2C4.49" style="width:100%;height:100%;border:0;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  PP2.init({ active: "contact" });
+  document.getElementById("hoursList").innerHTML = getHours().map(h =>
+    `<li><span>${h.day}</span><span>${h.open ? h.open + " – " + h.close : "Gesloten"}</span></li>`
+  ).join("");
+  document.getElementById("contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    PP2.toast("Bericht verzonden! We reageren binnen 24 uur. ✓", "success");
+    e.target.reset();
+  });
+</script>
+</body>
+</html>

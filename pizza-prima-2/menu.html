@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — Pizza Prima 2 | Bestel online</title>
+<meta name="description" content="Bekijk het volledige menu van Pizza Prima 2: pizza's, pasta, kapsalon, schotels, burgers, snacks, desserts en meer. Filter op vegetarisch, vegan, pittig of halal.">
+<link rel="canonical" href="https://www.pizzaprima2.nl/menu.html">
+<meta name="theme-color" content="#C6351F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Menu</span></div>
+      <span class="eyebrow"><span class="dot"></span> 70+ gerechten</span>
+      <h1 class="section-title">Ons volledige <em>menu</em></h1>
+      <p class="section-sub" style="margin:0 auto;">Zoek, filter en personaliseer — alles vers bereid op bestelling.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="cat-strip" id="catStrip" style="margin-bottom:10px;"></div>
+
+      <div class="filters-bar">
+        <div class="search-input-wrap" style="min-width:220px;">
+          <span class="sic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <input type="text" id="menuSearch" placeholder="Zoek gerecht of ingrediënt…" autocomplete="off">
+        </div>
+        <button class="chip-filter active" data-filter="all">Alles</button>
+        <button class="chip-filter" data-filter="popular">🔥 Populair</button>
+        <button class="chip-filter" data-filter="new">✨ Nieuw</button>
+        <button class="chip-filter" data-filter="offer">🏷️ Aanbieding</button>
+        <button class="chip-filter" data-filter="vegetarian">🌱 Vegetarisch</button>
+        <button class="chip-filter" data-filter="vegan">🌿 Vegan</button>
+        <button class="chip-filter" data-filter="spicy">🌶️ Pittig</button>
+        <button class="chip-filter" data-filter="halal">☪️ Halal</button>
+        <select id="priceSort" style="padding:9px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--cream);font-size:.8rem;font-weight:700;">
+          <option value="default">Sorteer: aanbevolen</option>
+          <option value="price-asc">Prijs: laag naar hoog</option>
+          <option value="price-desc">Prijs: hoog naar laag</option>
+          <option value="rating">Best beoordeeld</option>
+        </select>
+      </div>
+
+      <p id="resultsCount" class="text-muted" style="margin-bottom:24px;font-size:.85rem;"></p>
+
+      <div id="menuSections"></div>
+      <div id="noResults" class="hidden" style="text-align:center;padding:60px 20px;">
+        <div style="font-size:2.4rem;margin-bottom:12px;">🔍</div>
+        <h3 class="font-display">Geen gerechten gevonden</h3>
+        <p class="text-muted">Probeer een andere zoekterm of filter.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  PP2.init({ active: "menu" });
+
+  document.getElementById("catStrip").innerHTML = CATEGORIES.map(c =>
+    `<a href="#${c.id}" class="cat-pill" data-cat-pill="${c.id}"><span class="ic">${c.icon}</span><span class="lbl">${c.name}</span></a>`
+  ).join("");
+
+  let activeFilter = "all";
+  let sortMode = "default";
+  const OFFER_CODES = new Set(["pizza-margherita","pizza-diavola","calzone-classico","kapsalon-kip","burgers-prima-classic-burger"]); // representative "on offer" items
+
+  function matchesFilter(p) {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "offer") return OFFER_CODES.has(p.id);
+    return p.badges.includes(activeFilter);
+  }
+
+  function sortProducts(list) {
+    const copy = [...list];
+    if (sortMode === "price-asc") copy.sort((a, b) => a.price - b.price);
+    if (sortMode === "price-desc") copy.sort((a, b) => b.price - a.price);
+    if (sortMode === "rating") copy.sort((a, b) => b.rating - a.rating);
+    return copy;
+  }
+
+  function render() {
+    const q = document.getElementById("menuSearch").value.trim().toLowerCase();
+    let totalVisible = 0;
+    const sections = CATEGORIES.map(cat => {
+      let items = getProductsByCat(cat.id).filter(matchesFilter);
+      if (q) items = items.filter(p => p.name.toLowerCase().includes(q) || p.ingredients.some(i => i.toLowerCase().includes(q)));
+      items = sortProducts(items);
+      totalVisible += items.length;
+      if (items.length === 0) return "";
+      return `
+        <div class="menu-cat-section" id="${cat.id}">
+          <div class="menu-cat-head">
+            <h2>${cat.icon} ${cat.name}</h2>
+            <span class="count">${items.length} gerechten</span>
+          </div>
+          <p class="text-muted" style="margin:-14px 0 20px;font-size:.88rem;">${cat.desc}</p>
+          <div class="grid">${items.map(PP2.productCard).join("")}</div>
+        </div>`;
+    }).join("");
+    document.getElementById("menuSections").innerHTML = sections;
+    document.getElementById("noResults").classList.toggle("hidden", totalVisible > 0);
+    document.getElementById("resultsCount").textContent = `${totalVisible} gerechten gevonden`;
+  }
+
+  document.querySelectorAll(".chip-filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".chip-filter").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+  document.getElementById("priceSort").addEventListener("change", e => { sortMode = e.target.value; render(); });
+  document.getElementById("menuSearch").addEventListener("input", render);
+
+  // Highlight active category pill while scrolling
+  render();
+  const catObserver = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        document.querySelectorAll("[data-cat-pill]").forEach(p => p.classList.remove("active"));
+        document.querySelector(`[data-cat-pill="${en.target.id}"]`)?.classList.add("active");
+      }
+    });
+  }, { rootMargin: "-40% 0px -50% 0px" });
+  setTimeout(() => document.querySelectorAll(".menu-cat-section").forEach(s => catObserver.observe(s)), 300);
+
+  // Deep-link to category on load
+  if (location.hash) setTimeout(() => document.querySelector(location.hash)?.scrollIntoView({ behavior: "smooth" }), 350);
+</script>
+</body>
+</html>

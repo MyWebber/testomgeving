@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerij — Pizza Prima 2</title>
+<meta name="description" content="Bekijk foto's van onze gerechten, keuken en restaurant bij Pizza Prima 2.">
+<link rel="canonical" href="https://www.pizzaprima2.nl/gallery.html">
+<meta name="theme-color" content="#C6351F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Galerij</span></div>
+      <span class="eyebrow"><span class="dot"></span> Een visuele proeverij</span>
+      <h1 class="section-title">Onze <em>galerij</em></h1>
+      <p class="section-sub" style="margin:0 auto;">Gerechten, keuken, interieur en de mensen achter Pizza Prima 2.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="gallery-grid reveal" id="fullGallery"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Sluiten">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  PP2.init({ active: "" });
+
+  // Extend the base gallery with duplicated-but-different crops for a fuller wall
+  const EXTRA = [
+    { img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=900&q=80", alt: "Pizza close-up" },
+    { img: "https://images.unsplash.com/photo-1552539618-7eec9b4d1796?auto=format&fit=crop&w=900&q=80", alt: "Pizza uit de oven" },
+    { img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80", alt: "Schotel" },
+    { img: "https://images.unsplash.com/photo-1608219992759-8d74ed8d76eb?auto=format&fit=crop&w=900&q=80", alt: "Pasta" },
+    { img: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=900&q=80", alt: "Dessert" },
+    { img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80", alt: "Pizza op tafel" },
+  ];
+  const all = [...GALLERY, ...EXTRA];
+
+  document.getElementById("fullGallery").innerHTML = all.map((g, i) =>
+    `<div class="gallery-item" data-lightbox="${i}"><img src="${g.img}" alt="${g.alt}" loading="lazy" onerror="this.closest('.gallery-item').style.background='var(--sand)';this.remove()"></div>`
+  ).join("");
+
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  document.querySelectorAll("[data-lightbox]").forEach(el => {
+    el.addEventListener("click", () => {
+      const g = all[Number(el.dataset.lightbox)];
+      lightboxImg.src = g.img;
+      lightboxImg.alt = g.alt;
+      lightbox.classList.add("open");
+    });
+  });
+  document.getElementById("lightboxClose").addEventListener("click", () => lightbox.classList.remove("open"));
+  lightbox.addEventListener("click", e => { if (e.target === lightbox) lightbox.classList.remove("open"); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") lightbox.classList.remove("open"); });
+</script>
+</body>
+</html>

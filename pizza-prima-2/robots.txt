@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /checkout.html
+Disallow: /account.html
+Disallow: /track-order.html
+
+Sitemap: https://www.pizzaprima2.nl/sitemap.xml
