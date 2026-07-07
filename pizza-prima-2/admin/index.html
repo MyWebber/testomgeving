@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beheerpaneel — Pizza Prima 2</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#201812">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  body { background: var(--sand); }
+  .admin-shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .admin-sidebar { background: var(--ink); color: rgba(255,255,255,.75); padding: 26px 16px; display: flex; flex-direction: column; }
+  .admin-brand { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; padding: 0 10px 22px; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 18px; }
+  .admin-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .admin-nav button { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 10px; background: none; border: none; color: inherit; font-size: .86rem; font-weight: 600; text-align: left; }
+  .admin-nav button:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .admin-nav button.active { background: var(--tomato); color: #fff; }
+  .admin-nav .ic { font-size: 1.05rem; width: 20px; text-align: center; }
+  .admin-foot { border-top: 1px solid rgba(255,255,255,.1); padding-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .admin-foot a, .admin-foot button { color: rgba(255,255,255,.7); text-decoration: none; font-size: .82rem; font-weight: 600; background: none; border: none; text-align: left; padding: 6px 10px; }
+  .admin-foot a:hover, .admin-foot button:hover { color: #fff; }
+  .admin-main { padding: 32px 36px 80px; max-width: 1200px; }
+  .admin-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; flex-wrap: wrap; gap: 12px; }
+  .admin-topbar h1 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 18px; margin-bottom: 30px; }
+  .stat-tile { background: var(--paper); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 20px 22px; }
+  .stat-tile .lbl { font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; color: var(--muted); }
+  .stat-tile .val { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; margin-top: 4px; }
+  .admin-table-wrap { background: var(--paper); border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; }
+  table.admin-table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  table.admin-table th { text-align: left; padding: 12px 16px; background: var(--cream); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 1px solid var(--border-soft); }
+  table.admin-table td { padding: 12px 16px; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+  table.admin-table tr:last-child td { border-bottom: none; }
+  table.admin-table input[type="number"], table.admin-table input[type="text"], table.admin-table select { padding: 7px 10px; border-radius: 7px; border: 1.5px solid var(--border); width: 100%; max-width: 110px; font-size: .82rem; }
+  .switch { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch .slider { position: absolute; inset: 0; background: var(--border); border-radius: 999px; transition: .2s; cursor: pointer; }
+  .switch .slider::before { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s; }
+  .switch input:checked + .slider { background: var(--basil); }
+  .switch input:checked + .slider::before { transform: translateX(18px); }
+  .bar-row { display: grid; grid-template-columns: 140px 1fr 50px; align-items: center; gap: 12px; margin-bottom: 10px; font-size: .82rem; }
+  .bar-track { background: var(--border-soft); border-radius: 999px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--tomato-dark), var(--tomato)); border-radius: 999px; }
+  @media (max-width: 900px) {
+    .admin-shell { grid-template-columns: 1fr; }
+    .admin-sidebar { flex-direction: row; overflow-x: auto; align-items: center; }
+    .admin-nav { flex-direction: row; }
+    .admin-brand, .admin-foot { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loginGate" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;">
+  <div class="card" style="max-width:400px;width:100%;padding:34px;">
+    <div style="text-align:center;margin-bottom:22px;">
+      <div style="font-size:2rem;">🔐</div>
+      <h1 class="font-display" style="font-size:1.4rem;margin:10px 0 4px;">Beheerpaneel</h1>
+      <p class="text-muted" style="font-size:.84rem;">Pizza Prima 2 — alleen voor medewerkers</p>
+    </div>
+    <div class="field"><label>Wachtwoord</label><input type="password" id="adminPassword" placeholder="Demo-wachtwoord: prima2026"></div>
+    <button class="btn btn-primary btn-block btn-lg" id="adminLoginBtn">Inloggen</button>
+    <p class="field-hint" style="margin-top:14px;text-align:center;">Demo-omgeving: dit is geen echte authenticatie/back-end. Wachtwoord: <strong>prima2026</strong></p>
+    <p style="margin-top:16px;text-align:center;"><a href="../index.html" style="font-size:.8rem;color:var(--muted);">← Terug naar de website</a></p>
+  </div>
+</div>
+
+<div class="admin-shell hidden" id="adminShell">
+  <aside class="admin-sidebar">
+    <a href="../index.html" class="admin-brand">🍕 Pizza Prima 2</a>
+    <nav class="admin-nav" id="adminNav">
+      <button data-tab="dashboard" class="active"><span class="ic">📊</span> Dashboard</button>
+      <button data-tab="products"><span class="ic">🍕</span> Producten &amp; Voorraad</button>
+      <button data-tab="categories"><span class="ic">🗂️</span> Categorieën</button>
+      <button data-tab="orders"><span class="ic">🧾</span> Bestellingen</button>
+      <button data-tab="offers"><span class="ic">🏷️</span> Coupons &amp; Aanbiedingen</button>
+      <button data-tab="customers"><span class="ic">👥</span> Klanten</button>
+      <button data-tab="reviews"><span class="ic">⭐</span> Reviews</button>
+      <button data-tab="zones"><span class="ic">📍</span> Bezorggebieden</button>
+      <button data-tab="hours"><span class="ic">🕓</span> Openingstijden</button>
+      <button data-tab="banner"><span class="ic">🖼️</span> Homepage</button>
+      <button data-tab="notifications"><span class="ic">🔔</span> Notificaties</button>
+    </nav>
+    <div class="admin-foot">
+      <a href="../index.html" target="_blank">Bekijk website ↗</a>
+      <button id="adminLogoutBtn">Uitloggen</button>
+    </div>
+  </aside>
+  <main class="admin-main" id="adminMain"></main>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/cart.js"></script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Product — Pizza Prima 2</title>
+<meta name="description" id="pageDesc" content="Bekijk details, ingrediënten en personaliseer je bestelling bij Pizza Prima 2.">
+<meta name="theme-color" content="#C6351F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="section tight" style="padding-top:calc(var(--nav-h) + 40px);">
+    <div class="container">
+      <div class="breadcrumb" id="breadcrumb"></div>
+      <div id="productTop" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;"></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container" style="max-width:920px;">
+      <div class="tabs" id="detailTabs">
+        <button class="tab-btn active" data-tab="ingredients">Ingrediënten &amp; voeding</button>
+        <button class="tab-btn" data-tab="reviews">Reviews</button>
+      </div>
+      <div class="tab-panel active" id="tab-ingredients"></div>
+      <div class="tab-panel" id="tab-reviews"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span> Vaak samen besteld</span>
+        <h2 class="section-title" style="font-size:1.9rem;">Maak er een <em>maaltijd</em> van</h2>
+      </div>
+      <div class="grid reveal-stagger" id="fbtGrid"></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><span class="dot"></span> Suggesties</span>
+        <h2 class="section-title" style="font-size:1.9rem;">Dit vind je <em>misschien ook lekker</em></h2>
+      </div>
+      <div class="grid reveal-stagger" id="relatedGrid"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/product.js"></script>
+</body>
+</html>

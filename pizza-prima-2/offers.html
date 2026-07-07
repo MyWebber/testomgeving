@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aanbiedingen — Pizza Prima 2</title>
+<meta name="description" content="Bekijk alle actuele aanbiedingen bij Pizza Prima 2: kortingscodes, familiedeals, studentenkorting en weekendacties.">
+<link rel="canonical" href="https://www.pizzaprima2.nl/offers.html">
+<meta name="theme-color" content="#C6351F">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><text y=%2220%22 font-size=%2220%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>Aanbiedingen</span></div>
+      <span class="eyebrow"><span class="dot"></span> Beperkte tijd geldig</span>
+      <h1 class="section-title">Huidige <em>aanbiedingen</em></h1>
+      <p class="section-sub" style="margin:0 auto;">Voer de couponcode in bij het afrekenen om de korting te ontvangen.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid reveal-stagger" id="offersGrid" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;"></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container" style="max-width:760px;">
+      <div class="section-head center reveal">
+        <span class="eyebrow"><span class="dot"></span> Loyaliteitsprogramma</span>
+        <h2 class="section-title">Verdien <em>Prima Punten</em></h2>
+        <p class="section-sub">Bij elke bestelling spaar je punten. Wissel ze in voor gratis gerechten of korting.</p>
+      </div>
+      <div class="grid reveal-stagger" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-size:1.8rem;">🎉</div>
+          <h3 class="font-display" style="margin:10px 0 6px;font-size:1.05rem;">1 punt per €1</h3>
+          <p class="text-muted" style="font-size:.85rem;">Ontvang punten bij elke besteding.</p>
+        </div>
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-size:1.8rem;">🍕</div>
+          <h3 class="font-display" style="margin:10px 0 6px;font-size:1.05rem;">Gratis pizza bij 100 punten</h3>
+          <p class="text-muted" style="font-size:.85rem;">Wissel punten in voor een gratis pizza naar keuze.</p>
+        </div>
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-size:1.8rem;">🎂</div>
+          <h3 class="font-display" style="margin:10px 0 6px;font-size:1.05rem;">Verjaardagscadeau</h3>
+          <p class="text-muted" style="font-size:.85rem;">Een gratis dessert in je jarige maand.</p>
+        </div>
+        <div class="card" style="padding:26px;text-align:center;">
+          <div style="font-size:1.8rem;">🤝</div>
+          <h3 class="font-display" style="margin:10px 0 6px;font-size:1.05rem;">Referral bonus</h3>
+          <p class="text-muted" style="font-size:.85rem;">€5 korting voor jou én je vriend(in).</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:34px;">
+        <a href="account.html" class="btn btn-primary btn-lg">Bekijk mijn punten</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  PP2.init({ active: "offers" });
+
+  document.getElementById("offersGrid").innerHTML = getAllOffers().map((o, i) => `
+    <div class="offer-card ${i % 2 ? "dark" : ""}">
+      <span class="offer-tag">${o.type === "percent" ? o.value + "% korting" : o.type === "fixed" ? "€" + o.value.toFixed(2) + " korting" : "Buy 2 Get 1 Free"}</span>
+      <h3 class="offer-title">${o.title}</h3>
+      <p class="offer-desc">${o.desc}${o.minOrder ? ` Vanaf €${o.minOrder} bestelwaarde.` : ""}</p>
+      <div class="countdown" data-countdown-hours="${o.endsInHours}"></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div style="background:rgba(255,255,255,.14);border:1px dashed rgba(255,255,255,.4);border-radius:10px;padding:10px 16px;font-weight:800;letter-spacing:.06em;flex:1;text-align:center;" id="code-${i}">
+          ${o.code}
+        </div>
+        <button class="btn btn-secondary btn-sm" data-copy="${o.code}" style="background:rgba(255,255,255,.9);">Kopiëren</button>
+      </div>
+    </div>`).join("");
+
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard?.writeText(btn.dataset.copy).catch(() => {});
+      PP2.toast(`Code "${btn.dataset.copy}" gekopieerd ✓`, "success");
+    });
+  });
+  PP2.wireCountdowns();
+</script>
+</body>
+</html>
