@@ -682,7 +682,8 @@ h1, h2, h3, .font-display { font-family: var(--font-display); }
 /* Gallery */
 .gallery-grid { columns: 4 260px; column-gap: 18px; }
 .gallery-item { break-inside: avoid; margin-bottom: 18px; border-radius: var(--radius); overflow: hidden; position: relative; cursor: zoom-in; box-shadow: var(--shadow-sm); }
-.gallery-item img { width: 100%; display: block; transition: transform .4s ease; }
+.gallery-item .media-box { min-height: 160px; }
+.gallery-item img { transition: transform .4s ease; }
 .gallery-item:hover img { transform: scale(1.05); }
 .lightbox { position: fixed; inset: 0; background: rgba(15,10,7,.92); z-index: 1600; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
 .lightbox.open { opacity: 1; pointer-events: all; }

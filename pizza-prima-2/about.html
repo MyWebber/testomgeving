@@ -118,8 +118,9 @@
 <script src="assets/js/app.js"></script>
 <script>
   PP2.init({ active: "about" });
-  document.getElementById("kitchenGallery").innerHTML = GALLERY.slice(0, 8).map(g =>
-    `<div class="gallery-item"><img src="${g.img}" alt="${g.alt}" loading="lazy" onerror="this.closest('.gallery-item').style.background='var(--sand)';this.remove()"></div>`
+  const kitchenRatios = ["3/4", "1/1", "4/3", "4/5"];
+  document.getElementById("kitchenGallery").innerHTML = GALLERY.slice(0, 8).map((g, i) =>
+    `<div class="gallery-item" style="aspect-ratio:${kitchenRatios[i % kitchenRatios.length]};">${PP2.mediaBox(g.img, g.alt, "🖼️")}</div>`
   ).join("");
 </script>
 </body>

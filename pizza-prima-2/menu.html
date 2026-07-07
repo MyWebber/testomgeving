@@ -99,7 +99,11 @@
     let totalVisible = 0;
     const sections = CATEGORIES.map(cat => {
       let items = getProductsByCat(cat.id).filter(matchesFilter);
-      if (q) items = items.filter(p => p.name.toLowerCase().includes(q) || p.ingredients.some(i => i.toLowerCase().includes(q)));
+      if (q) items = items.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.ingredients.some(i => i.toLowerCase().includes(q)) ||
+        cat.name.toLowerCase().includes(q)
+      );
       items = sortProducts(items);
       totalVisible += items.length;
       if (items.length === 0) return "";

@@ -250,8 +250,9 @@
       </div>
     </div>`).join("");
 
-  document.getElementById("galleryTeaser").innerHTML = GALLERY.slice(0, 6).map(g =>
-    `<div class="gallery-item"><img src="${g.img}" alt="${g.alt}" loading="lazy" onerror="this.closest('.gallery-item').style.background='var(--sand)';this.remove()"></div>`
+  const teaserRatios = ["3/4", "1/1", "4/3", "4/5", "1/1", "3/4"];
+  document.getElementById("galleryTeaser").innerHTML = GALLERY.slice(0, 6).map((g, i) =>
+    `<div class="gallery-item" style="aspect-ratio:${teaserRatios[i % teaserRatios.length]};">${PP2.mediaBox(g.img, g.alt, "🖼️")}</div>`
   ).join("");
 
   const offer = OFFERS[0];
