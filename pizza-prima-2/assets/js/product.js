@@ -88,12 +88,12 @@
       </div>` : "";
 
     document.getElementById("productTop").innerHTML = `
-      <div class="reveal">
+      <div>
         <div style="border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:1/1;box-shadow:var(--shadow-lg);position:sticky;top:calc(var(--nav-h) + 24px);">
           ${PP2.mediaBox(product.image, product.name, PP2.emojiFor(product.cat))}
         </div>
       </div>
-      <div class="reveal">
+      <div>
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
           <div>
             <span class="product-cat">${getCategory(product.cat).name}</span>
